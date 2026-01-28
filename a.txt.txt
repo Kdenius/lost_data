@@ -1,42 +1,103 @@
-create table departments (
-    pk_department_id int not null primary key,
-    departments_name varchar(30) not null
-);
+insert into departments (departments_name)
+values
+('intern training'),
+('frontend developer'),
+('backend developer'),
+('devops team'),
+('hrteam as');
 
-create table employees (
-    pk_employee_id int not null primary key,
-    employee_name varchar(30) not null,
-    fk_department_id int not null
-        foreign key references departments(pk_department_id)
-);
 
-create table leave (
-    pk_leave_id int not null primary key,
-    leave_name varchar(20) not null
-);
+insert into employees (employee_name, fk_department_id)
+values
+('kisha dervaliya', 1),
+('maheta parth', 1),
+('ankur rava', 4),
+('dhruv son', 3),
+('harsharl mavan', 2),
+('neel devan', 4),
+('rishu arora', 5),
+('divya agarva', 4),
+('tirth bhadan', 1),
+('kartik pate', 2),
+('om sona', 3),
+('hae done', 5),
+('markon goe', 3),
+('fridge tim', 2);
 
-create table application_status (
-    pk_status_id int not null primary key,
-    status_name varchar(10) not null
-);
 
-create table leave_balance (
-    pk_leave_balance_id int not null primary key,
-    fk_department_id int not null
-        foreign key references departments(pk_department_id),
-    fk_leave_id int not null
-        foreign key references leave(pk_leave_id),
-    balance int not null
-);
+insert into leave (leave_name)
+values
+('earned'),
+('casual'),
+('sick'),
+('parent'),
+('unpaid'),
+('marriage'),
+('adjusted');
 
-create table leave_application (
-    pk_leave_application_id int not null primary key,
-    fk_employee_id int not null
-        foreign key references employees(pk_employee_id),
-    leave_day int not null default 0,
-    leave_date date not null,
-    fk_status_id int not null
-        foreign key references application_status(pk_status_id),
-    fk_approver_id int null
-        foreign key references employees(pk_employee_id)
-);
+insert into leave_balance (fk_department_id, fk_leave_id, balance)
+values
+-- department 1
+(1, 1, 10),
+(1, 2, 5),
+(1, 3, 3),
+(1, 4, 7),
+(1, 5, 4),
+(1, 6, 4),
+(1, 7, 3),
+
+-- department 2
+(2, 1, 9),
+(2, 2, 5),
+(2, 3, 3),
+(2, 4, 7),
+(2, 5, 3),
+(2, 6, 4),
+(2, 7, 2),
+
+-- department 3
+(3, 1, 11),
+(3, 2, 5),
+(3, 3, 3),
+(3, 4, 8),
+(3, 5, 3),
+(3, 6, 6),
+(3, 7, 5),
+
+-- department 4
+(4, 1, 11),
+(4, 2, 5),
+(4, 3, 3),
+(4, 4, 8),
+(4, 5, 3),
+(4, 6, 6),
+(4, 7, 5),
+
+-- department 5
+(5, 1, 11),
+(5, 2, 5),
+(5, 3, 3),
+(5, 4, 8),
+(5, 5, 3),
+(5, 6, 6),
+(5, 7, 5);
+
+
+
+insert into leave_application
+(
+    fk_employee_id,
+    fk_leave_balance_id,
+    applied_date,
+    leave_date,
+    fk_status_id,
+    fk_approver_id,
+    day
+)
+values
+(1, 3,  '2026-01-28', '2026-01-31', 2, 7,    1),
+(2, 1,  '2026-01-28', '2026-02-01', 3, null, 1),
+(6, 22, '2026-01-28', '2026-02-08', 3, null, 1),
+(11,15, '2026-01-28', '2026-02-10', 3, null, 1),
+(14,8,  '2026-01-28', '2026-02-04', 3, null, 1),
+(9, 3,  '2026-01-28', '2026-02-15', 2, 7,    1);
