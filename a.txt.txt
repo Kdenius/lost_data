@@ -1,0 +1,42 @@
+create table departments (
+    pk_department_id int not null primary key,
+    departments_name varchar(30) not null
+);
+
+create table employees (
+    pk_employee_id int not null primary key,
+    employee_name varchar(30) not null,
+    fk_department_id int not null
+        foreign key references departments(pk_department_id)
+);
+
+create table leave (
+    pk_leave_id int not null primary key,
+    leave_name varchar(20) not null
+);
+
+create table application_status (
+    pk_status_id int not null primary key,
+    status_name varchar(10) not null
+);
+
+create table leave_balance (
+    pk_leave_balance_id int not null primary key,
+    fk_department_id int not null
+        foreign key references departments(pk_department_id),
+    fk_leave_id int not null
+        foreign key references leave(pk_leave_id),
+    balance int not null
+);
+
+create table leave_application (
+    pk_leave_application_id int not null primary key,
+    fk_employee_id int not null
+        foreign key references employees(pk_employee_id),
+    leave_day int not null default 0,
+    leave_date date not null,
+    fk_status_id int not null
+        foreign key references application_status(pk_status_id),
+    fk_approver_id int null
+        foreign key references employees(pk_employee_id)
+);
